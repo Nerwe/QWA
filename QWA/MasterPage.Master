@@ -1,0 +1,36 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="QWA.MasterPage" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
+    <link href="Content/Styles.css" rel="stylesheet" type="text/css" />
+    <link href="Content/Home.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="header">
+            <h1>QWA</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="register">Register</a></li>
+                    <li><a href="login">Login</a></li>
+                    <li><a href="profile">Profile</a></li>
+                    <li><a href="adding">Adding</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2024 QWA. All rights reserved.</p>
+        </div>
+    </form>
+</body>
+</html>
