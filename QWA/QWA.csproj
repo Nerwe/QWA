@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\MainAfter.jpg" />
+    <Content Include="Content\Home.css" />
     <Content Include="Content\Styles.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
