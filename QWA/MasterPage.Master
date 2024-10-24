@@ -11,6 +11,7 @@
     <link href="Content/Home.css" rel="stylesheet" type="text/css" />
     <link href="Content/Form.css" rel="stylesheet" type="text/css" />
     <link href="Content/Profile.css" rel="stylesheet" type="text/css" />
+    <link href="Content/Adding.css" rel="stylesheet" type="text/css" />
     <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
 </head>
 <body>

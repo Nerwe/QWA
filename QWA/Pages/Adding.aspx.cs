@@ -9,6 +9,11 @@ namespace QWA.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["UserID"] == null)
+            {
+                Response.Redirect("login");
+            }
+
             if (!IsPostBack)
             {
                 LoadCategories();

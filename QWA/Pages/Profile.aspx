@@ -5,18 +5,20 @@
         <h2>User Profile</h2>
         <asp:Label ID="UsernameLabel" runat="server"></asp:Label>
         <asp:Label ID="EmailLabel" runat="server"></asp:Label>
-        <asp:Button ID="LogoutButton" runat="server" Text="Logout" OnClick="LogoutButton_Click" />
-        <h2>My Advertisements</h2>
+        <asp:Button ID="LogoutButton" runat="server" Text="Logout" OnClick="LogoutButton_Click" CssClass="logout-button"/>
+        <h2>My Posts</h2>
         <div class="card-list">
             <asp:Repeater ID="AnnouncementsRepeater" runat="server">
                 <ItemTemplate>
                     <div class="card">
-                        <img src='<%# Eval("ImageURL") %>' class="card-img-top" alt="Объявление">
-                        <div class="card-body">
-                            <h5 class="card-title"><%# Eval("Title") %></h5>
-                            <p class="card-text">Category: <%# Eval("CategoryName") %></p>
-                            <p class="card-text">Price: <%# Eval("Price") %></p>
-                        </div>
+                        <a href='<%# GetRouteUrl("PostDetailsRoute", new { id = Eval("PostID") }) %>'>
+                            <img src='<%# Eval("ImageURL") %>' class="card-img-top" alt="Объявление">
+                            <div class="card-body">
+                                <p class="card-text title"><%# Eval("Title") %></p>
+                                <p class="card-text price"><%# Eval("Price", "{0:N2}") %> грн.</p>
+                                <p class="card-text date"><%# Eval("CreatedDate", "{0:dd MMM yyyy HH:MM}") %></p>
+                            </div>
+                        </a>
                     </div>
                 </ItemTemplate>
             </asp:Repeater>

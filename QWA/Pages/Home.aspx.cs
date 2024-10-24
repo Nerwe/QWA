@@ -22,7 +22,7 @@ namespace QWA.Pages
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = @"
-                    SELECT p.PostID, p.Title, p.Price, p.ImageURL, p.Content, c.CategoryName
+                    SELECT p.PostID, p.Title, p.Price, p.ImageURL, p.Content, p.CreatedDate, c.CategoryName
                     FROM Posts p
                     INNER JOIN Categories c ON p.CategoryID = c.CategoryID";
 

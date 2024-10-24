@@ -56,7 +56,7 @@ namespace QWA.Pages
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                string query = "SELECT Title, CategoryName, Price, ImageURL FROM Posts " +
+                string query = "SELECT PostID, Title, CategoryName, Price, ImageURL, CreatedDate FROM Posts " +
                                "INNER JOIN Categories ON Posts.CategoryID = Categories.CategoryID " +
                                "WHERE Posts.UserID = @UserID";
 

@@ -1,4 +1,4 @@
-﻿.form {
+﻿.adding {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,18 +8,18 @@
     gap: 20px;
 }
 
-.form-header {
+.adding-header {
     color: grey;
     font-size: calc(4px + 2vmin);
 }
 
-.form-main {
+.adding-main {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.form-input {
+.adding-input {
     padding: .75rem 1rem;
     flex-grow: 1;
     border: none;
@@ -30,17 +30,42 @@
     font-size: calc(1px + 2vmin);
 }
 
-    .form-input:focus {
+    .adding-input:focus {
         transform: scale(1.05);
         background-color: #242529;
         color: white;
     }
 
-.password-container {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
+.multi {
+    resize: none;
+    overflow: auto;
 }
+
+.adding-select {
+    padding: .75rem 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #2A2B2F;
+    color: grey;
+    font-size: calc(1px + 2vmin);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+    .adding-select:focus {
+        transform: scale(1.05);
+        background-color: #242529;
+        color: white;
+    }
+
+    .adding-select option {
+        background-color: #2A2B2F;
+        color: grey;
+    }
+
+        .adding-select option:checked {
+            background-color: #242529;
+            color: white;
+        }
 
 .submit-button {
     padding: 1vmin 2vmin;
@@ -60,24 +85,4 @@
     .submit-button:focus {
         color: white;
         background-color: #f89406;
-    }
-
-.form-footer {
-    font-size: calc(1px + 2vmin);
-}
-
-.text {
-    color: grey;
-}
-
-.text-link {
-    color: #f89406;
-}
-
-    .text-link:hover {
-        color: white;
-    }
-
-    .text-link:focus {
-        color: white;
     }
