@@ -37,7 +37,19 @@ namespace QWA
             );
 
             routes.MapPageRoute(
+                "PostDetailsRoute",
+                "post/{id}",
+                "~/Pages/Details.aspx"
+            );
+
+            routes.MapPageRoute(
                 "HomeRoute",
+                "home",
+                "~/Pages/Home.aspx"
+            );
+
+            routes.MapPageRoute(
+                "NotFoundRoute",
                 "{*url}",
                 "~/Pages/Home.aspx"
             );

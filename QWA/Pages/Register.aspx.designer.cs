@@ -42,21 +42,30 @@ namespace QWA.Pages
         protected global::System.Web.UI.WebControls.TextBox tbPassword;
 
         /// <summary>
-        /// btRegisterButton элемент управления.
+        /// tbPasswordConfirm элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btRegisterButton;
+        protected global::System.Web.UI.WebControls.TextBox tbPasswordConfirm;
 
         /// <summary>
-        /// lbMessageLabel элемент управления.
+        /// RegisterButton элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbMessageLabel;
+        protected global::System.Web.UI.WebControls.Button RegisterButton;
+
+        /// <summary>
+        /// MessageLabel элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label MessageLabel;
     }
 }

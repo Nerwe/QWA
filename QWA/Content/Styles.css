@@ -22,6 +22,11 @@ body {
     display: flex;
 }
 
+.content {
+    height: 100vh;
+    width: 100vw;
+}
+
 h1,
 h2,
 h3,
@@ -44,4 +49,33 @@ ul {
 
 input {
     outline: none;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    overflow: hidden;
+    background-color: #444;
+}
+
+.logo-image {
+    width: 40px;
+    display: inline-block;
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: calc(4px + 2vmin);
+}
+
+.footer {
+    background-color: #111;
+    font-size: calc(1px + 2vmin);
 }

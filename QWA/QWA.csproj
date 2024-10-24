@@ -68,12 +68,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\MainAfter.jpg" />
+    <Content Include="Content\Details.css" />
     <Content Include="Content\Home.css" />
+    <Content Include="Content\Form.css" />
+    <Content Include="Content\Profile.css" />
     <Content Include="Content\Styles.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="favicon.ico" />
     <Content Include="Pages\Adding.aspx" />
+    <Content Include="Pages\Details.aspx" />
     <Content Include="Pages\Editing.aspx" />
     <Content Include="Pages\Home.aspx" />
     <Content Include="Pages\Login.aspx" />
@@ -105,6 +109,13 @@
     </Compile>
     <Compile Include="Pages\Adding.aspx.designer.cs">
       <DependentUpon>Adding.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Details.aspx.cs">
+      <DependentUpon>Details.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Details.aspx.designer.cs">
+      <DependentUpon>Details.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Editing.aspx.cs">
       <DependentUpon>Editing.aspx</DependentUpon>

@@ -14,7 +14,9 @@ namespace QWA.Pages
             }
 
             int userId = (int)Session["UserID"];
+
             LoadUserProfile(userId);
+            LoadAnnouncements(userId);
         }
 
         private void LoadUserProfile(int userId)
@@ -41,6 +43,33 @@ namespace QWA.Pages
                         {
                             UsernameLabel.Text = "User not found.";
                             EmailLabel.Text = "";
+                        }
+                    }
+                }
+            }
+        }
+
+        private void LoadAnnouncements(int userId)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["QWAdb"].ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT Title, CategoryName, Price, ImageURL FROM Posts " +
+                               "INNER JOIN Categories ON Posts.CategoryID = Categories.CategoryID " +
+                               "WHERE Posts.UserID = @UserID";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@UserID", userId); // Добавляем параметр userId в запрос
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            AnnouncementsRepeater.DataSource = reader;
+                            AnnouncementsRepeater.DataBind();
                         }
                     }
                 }
