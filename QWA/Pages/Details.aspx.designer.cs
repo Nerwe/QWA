@@ -96,6 +96,15 @@ namespace QWA.Pages
         protected global::System.Web.UI.WebControls.Label UserEmailLabel;
 
         /// <summary>
+        /// rptComments элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptComments;
+
+        /// <summary>
         /// txtComment элемент управления.
         /// </summary>
         /// <remarks>
@@ -112,14 +121,5 @@ namespace QWA.Pages
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSubmit;
-
-        /// <summary>
-        /// rptComments элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически созданное поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptComments;
     }
 }

@@ -48,7 +48,7 @@ namespace QWA.Pages
                         {
                             TitleLabel.Text = reader["Title"].ToString();
                             DescriptionLabel.Text = reader["Description"].ToString();
-                            PriceLabel.Text = reader["Price"].ToString();
+                            PriceLabel.Text = $"{Math.Round(Convert.ToDecimal(reader["Price"])).ToString("N0")} грн.";
                             CategoryLabel.Text = reader["CategoryName"].ToString();
                             ImageControl.ImageUrl = reader["ImageURL"].ToString();
                             CreatedDateLabel.Text = Convert.ToDateTime(reader["CreatedDate"]).ToString("MMM dd, yyyy");

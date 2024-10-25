@@ -36,6 +36,37 @@
         color: white;
     }
 
+.multi {
+    resize: none;
+    overflow: auto;
+}
+
+.form-select {
+    padding: .75rem 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #2A2B2F;
+    color: grey;
+    font-size: calc(1px + 2vmin);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+    .form-select:focus {
+        transform: scale(1.05);
+        background-color: #242529;
+        color: white;
+    }
+
+    .form-select option {
+        background-color: #2A2B2F;
+        color: grey;
+    }
+
+        .form-select option:checked {
+            background-color: #242529;
+            color: white;
+        }
+
 .password-container {
     display: flex;
     flex-direction: row;

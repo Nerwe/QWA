@@ -11,7 +11,7 @@
     <link href="Content/Home.css" rel="stylesheet" type="text/css" />
     <link href="Content/Form.css" rel="stylesheet" type="text/css" />
     <link href="Content/Profile.css" rel="stylesheet" type="text/css" />
-    <link href="Content/Adding.css" rel="stylesheet" type="text/css" />
+    <link href="Content/Details.css" rel="stylesheet" type="text/css" />
     <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
 </head>
 <body>
@@ -20,14 +20,14 @@
             <nav class="navbar">
                 <a class="navbar-brand" href="/">
                     <div class="logo-image">
-                        <img src="favicon.ico" class="img-fluid">
+                        <img src="/favicon.ico" class="img-fluid">
                     </div>
                 </a>
                 <a href="/">Home</a>
-                <a href="register">Register</a>
-                <a href="login">Login</a>
-                <a href="profile">Profile</a>
-                <a href="adding">Adding</a>
+                <a href="/register">Register</a>
+                <a href="/login">Login</a>
+                <a href="/profile">Profile</a>
+                <a href="/adding">Adding</a>
             </nav>
         </div>
 

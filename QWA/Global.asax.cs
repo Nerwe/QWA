@@ -37,6 +37,12 @@ namespace QWA
             );
 
             routes.MapPageRoute(
+                "EditingRoute",
+                "edit/{id}",
+                "~/Pages/Editing.aspx"
+            );
+
+            routes.MapPageRoute(
                 "PostDetailsRoute",
                 "post/{id}",
                 "~/Pages/Details.aspx"

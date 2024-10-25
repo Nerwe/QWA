@@ -62,7 +62,7 @@ namespace QWA.Pages
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@UserID", userId); // Добавляем параметр userId в запрос
+                    command.Parameters.AddWithValue("@UserID", userId);
 
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -81,6 +81,11 @@ namespace QWA.Pages
             Session.Clear();
             Session.Abandon();
             Response.Redirect("login");
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

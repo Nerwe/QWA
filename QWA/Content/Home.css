@@ -16,10 +16,10 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.card:hover {
-    transform: scale(1.05);
-    box-shadow: 3px 12px 5px rgba(0, 0, 0, 0.3);
-}
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 3px 12px 5px rgba(0, 0, 0, 0.3);
+    }
 
 .img-fluid {
     width: 100%;

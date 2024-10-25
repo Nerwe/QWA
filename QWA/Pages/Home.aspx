@@ -9,7 +9,7 @@
                         <img src='<%# Eval("ImageURL") %>' class="card-img-top" alt="<%# Eval("Title") %>">
                         <div class="card-body">
                             <p class="card-text title"><%# Eval("Title") %></p>
-                            <p class="card-text price"><%# Eval("Price", "{0:N2}") %> грн.</p>
+                            <p class="card-text price"><%# Eval("Price", "{0:N0}") %> грн.</p>
                             <p class="card-text date"><%# Eval("CreatedDate", "{0:dd MMM yyyy HH:MM}") %></p>
                         </div>
                     </a>

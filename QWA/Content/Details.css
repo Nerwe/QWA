@@ -1,115 +1,103 @@
 ﻿.details {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 20px;
     padding: 1rem;
+    text-align: left;
 }
 
 .container {
     display: flex;
     flex-direction: row;
-    gap: 1rem;
+    gap: 20px;
 }
 
 .image-container {
-    height: 100%;
+    display: flex;
     width: 100%;
+    border-radius: 5px;
+    padding: 1rem;
+    background-color: #3F3F3F;
+}
+
+.main-image {
+    width: 100%;
+    object-fit: cover;
 }
 
 .post-base-info {
     display: flex;
     flex-direction: column;
-    height: 100%;
     width: 100%;
+    gap: 20px;
+    border-radius: 5px;
+    padding: 1rem;
+    background-color: #3F3F3F;
 }
 
 .post-description {
     display: flex;
     flex-direction: column;
+    gap: 20px;
+    background-color: #3F3F3F;
+    padding: 1rem;
+    border-radius: 5px;
 }
 
 .user-info {
     display: flex;
     flex-direction: column;
+    gap: 20px;
+    background-color: #3F3F3F;
+    padding: 1rem;
+    border-radius: 5px;
 }
 
 .user-contact {
     display: flex;
     flex-direction: column;
+    gap: 20px;
+    background-color: #3F3F3F;
+    padding: 1rem;
+    border-radius: 5px;
 }
 
 .comments-section {
-    width: 100%;
-    max-width: 600px;
-    margin: 20px auto;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #3F3F3F;
+    padding: 1rem;
+    border-radius: 5px;
 }
-
-    .comments-section h2 {
-        margin-bottom: 20px;
-        font-size: 24px;
-        color: #333;
-    }
 
 .comment-form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 20px;
 }
 
 .comment-textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    resize: vertical;
-}
-
-.comment-button {
-    align-self: flex-end;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
+    padding: .75rem 1rem;
+    flex-grow: 1;
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    border-radius: 5px;
+    background-color: #2A2B2F;
+    color: grey;
+    transition: transform 0.3s ease;
+    font-size: calc(1px + 2vmin);
+    resize: none;
+    overflow: auto;
 }
-
-    .comment-button:hover {
-        background-color: #0056b3;
-    }
 
 .comment-list {
-    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .comment {
-    padding: 15px;
-    border-bottom: 1px solid #eee;
-}
-
-.comment-author {
-    font-size: 16px;
-    color: #555;
-}
-
-    .comment-author .comment-date {
-        font-size: 12px;
-        color: #999;
-        margin-left: 10px;
-    }
-
-.comment-text {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #333;
-}
-
-.comment:not(:last-child) {
-    margin-bottom: 20px;
+    border-radius: 5px;
+    padding: 1rem;
+    background-color: #2A2B2F;
 }
