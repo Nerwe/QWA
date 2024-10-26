@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Details.aspx.cs" Inherits="QWA.Pages.Details" MasterPageFile="~/MasterPage.Master" %>
+﻿<%@ Page Language="C#" Culture="uk-UA" AutoEventWireup="true" CodeBehind="Details.aspx.cs" Inherits="QWA.Pages.Details" MasterPageFile="~/MasterPage.Master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="details">

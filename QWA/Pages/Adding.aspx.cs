@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Configuration;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace QWA.Pages
 {
@@ -11,7 +12,7 @@ namespace QWA.Pages
         {
             if (Session["UserID"] == null)
             {
-                Response.Redirect("login");
+                Response.Redirect("/login");
             }
 
             if (!IsPostBack)
@@ -42,20 +43,57 @@ namespace QWA.Pages
 
         protected void AddPostButton_Click(object sender, EventArgs e)
         {
-            string title = tbTitle.Text;
-            string content = tbContent.Text;
+            string title = tbTitle.Text.Trim();
+            string content = tbContent.Text.Trim();
             decimal price;
+
+            if (!IsValidInput(title, content, tbPrice.Text, tbImageURL.Text))
+            {
+                MessageLabel.CssClass = "fail";
+                return;
+            }
+            else
+            {
+                MessageLabel.CssClass = "success";
+            }
 
             if (!decimal.TryParse(tbPrice.Text, out price))
             {
-                MessageLabel.Text = "Введите корректную цену.";
+                MessageLabel.Text = "Incorrect price.";
                 return;
             }
 
-            string imageURL = tbImageURL.Text;
             int categoryID = Convert.ToInt32(ddlCategories.SelectedValue);
+            AddPostToDatabase(title, content, price, tbImageURL.Text, categoryID);
+        }
 
-            AddPostToDatabase(title, content, price, imageURL, categoryID);
+        private bool IsValidInput(string title, string content, string price, string imageURL)
+        {
+            if (!Regex.IsMatch(title, @"^[a-zA-Zа-яА-Я0-9\s.,!?:;()'-]+$"))
+            {
+                MessageLabel.Text = "Title can only contain letters, digits, and certain punctuation.";
+                return false;
+            }
+
+            if (!Regex.IsMatch(content, @"^[a-zA-Zа-яА-Я0-9\s.,!?:;()'-]+$"))
+            {
+                MessageLabel.Text = "Description can only contain letters, digits, and certain punctuation.";
+                return false;
+            }
+
+            if (!decimal.TryParse(price, out _))
+            {
+                MessageLabel.Text = "Incorrect price format.";
+                return false;
+            }
+
+            if (!Uri.IsWellFormedUriString(imageURL, UriKind.Absolute))
+            {
+                MessageLabel.Text = "Invalid image URL.";
+                return false;
+            }
+
+            return true;
         }
 
         private void AddPostToDatabase(string title, string content, decimal price, string imageURL, int categoryId)
@@ -80,7 +118,7 @@ namespace QWA.Pages
                 cmd.ExecuteNonQuery();
                 conn.Close();
 
-                MessageLabel.Text = "Объявление добавлено!";
+                MessageLabel.Text = "Post created!";
                 ClearFields();
             }
         }
@@ -93,6 +131,5 @@ namespace QWA.Pages
             tbImageURL.Text = string.Empty;
             ddlCategories.SelectedIndex = 0;
         }
-
     }
 }

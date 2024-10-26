@@ -6,7 +6,7 @@
             <h2>Add new post</h2>
         </div>
         <div class="form-main">
-            <asp:Label ID="MessageLabel" runat="server" ForeColor="Red"></asp:Label>
+            <asp:Label ID="MessageLabel" runat="server"></asp:Label>
             <asp:TextBox ID="tbTitle" runat="server" placeholder="Title" CssClass="form-input"></asp:TextBox>
             <asp:TextBox ID="tbContent" runat="server" TextMode="MultiLine" Rows="10" placeholder="Description" CssClass="form-input multi"></asp:TextBox>
             <asp:TextBox ID="tbPrice" runat="server" placeholder="Price" CssClass="form-input"></asp:TextBox>

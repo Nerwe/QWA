@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace QWA.Pages
 {
@@ -8,6 +10,7 @@ namespace QWA.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
         }
 
         protected void LoginButton_Click(object sender, EventArgs e)
@@ -15,13 +18,12 @@ namespace QWA.Pages
             string username = tbUsername.Text;
             string password = tbPassword.Text;
 
-            string hashedPassword = HashPassword(password);
-            int? userId = AuthenticateUser(username, hashedPassword);
+            int? userId = AuthenticateUser(username, password);
 
             if (userId.HasValue)
             {
                 Session["UserID"] = userId.Value;
-                Response.Redirect("profile");
+                Response.Redirect("/profile");
             }
             else
             {
@@ -36,18 +38,22 @@ namespace QWA.Pages
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                string query = "SELECT UserID FROM Users WHERE Username = @Username AND PasswordHash = @Password";
+                string query = "SELECT UserID, PasswordHash FROM Users WHERE Username = @Username";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Username", username);
-                    command.Parameters.AddWithValue("@Password", password);
 
-                    object result = command.ExecuteScalar();
-
-                    if (result != null)
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        return Convert.ToInt32(result);
+                        if (reader.Read())
+                        {
+                            string storedPasswordHash = reader["PasswordHash"].ToString();
+                            if (VerifyPassword(password, storedPasswordHash))
+                            {
+                                return Convert.ToInt32(reader["UserID"]);
+                            }
+                        }
                     }
                 }
             }
@@ -55,9 +61,42 @@ namespace QWA.Pages
             return null;
         }
 
+        private bool VerifyPassword(string enteredPassword, string storedPassword)
+        {
+            string[] parts = storedPassword.Split(':');
+            if (parts.Length != 2) return false;
+
+            string salt = parts[0];
+            string hash = parts[1];
+
+            string saltedPassword = salt + enteredPassword;
+
+            using (var sha256 = SHA256.Create())
+            {
+                byte[] hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(saltedPassword));
+                string enteredHash = Convert.ToBase64String(hashBytes);
+
+                return hash == enteredHash;
+            }
+        }
+
         private string HashPassword(string password)
         {
-            return password;
+            byte[] saltBytes = new byte[16];
+            using (var rng = new RNGCryptoServiceProvider())
+            {
+                rng.GetBytes(saltBytes);
+            }
+            string salt = Convert.ToBase64String(saltBytes);
+
+            string saltedPassword = salt + password;
+            using (var sha256 = SHA256.Create())
+            {
+                byte[] hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(saltedPassword));
+                string hash = Convert.ToBase64String(hashBytes);
+
+                return $"{salt}:{hash}";
+            }
         }
     }
 }

@@ -112,3 +112,11 @@
     .text-link:focus {
         color: white;
     }
+
+.fail {
+    color: red;
+}
+
+.success {
+    color: green;
+}

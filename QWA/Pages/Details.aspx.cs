@@ -11,15 +11,33 @@ namespace QWA.Pages
         {
             if (!IsPostBack)
             {
-                if (Page.RouteData.Values["id"] != null)
+                if (Page.RouteData.Values["id"] != null &&
+                    int.TryParse(Page.RouteData.Values["id"].ToString(), out int postId) &&
+                    PostExists(postId))
                 {
-                    int postId = int.Parse(Page.RouteData.Values["id"] as string);
                     LoadPostDetails(postId);
                     LoadComments(postId);
                 }
                 else
                 {
                     Response.Redirect("/");
+                }
+            }
+        }
+
+        private bool PostExists(int postId)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["QWAdb"].ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT COUNT(1) FROM Posts WHERE PostID = @PostID";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@PostID", postId);
+                    return (int)command.ExecuteScalar() > 0;
                 }
             }
         }
@@ -99,7 +117,7 @@ namespace QWA.Pages
                 {
                     AddComment(postId, userId, commentText);
                     txtComment.Text = string.Empty;
-                    LoadComments(postId); 
+                    LoadComments(postId);
                 }
             }
             else

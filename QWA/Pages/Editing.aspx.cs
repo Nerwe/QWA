@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Web.UI.WebControls;
+using System.Text.RegularExpressions;
 
 namespace QWA.Pages
 {
@@ -9,13 +9,17 @@ namespace QWA.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["UserID"] == null)
+            {
+                Response.Redirect("/login");
+            }
+
             if (!IsPostBack)
             {
                 LoadCategories();
 
-                if (Page.RouteData.Values["id"] != null)
+                if (Page.RouteData.Values["id"] != null && int.TryParse(Page.RouteData.Values["id"].ToString(), out int postId) && IsUserPostOwner(postId, (int)Session["UserID"]))
                 {
-                    int postId = int.Parse(Page.RouteData.Values["id"] as string);
                     LoadPostData(postId);
                 }
                 else
@@ -77,25 +81,92 @@ namespace QWA.Pages
             }
         }
 
-        protected void SaveButton_Click(object sender, EventArgs e)
+        private bool IsUserPostOwner(int postId, int userId)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["QWAdb"].ConnectionString;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
+                string query = "SELECT UserID FROM Posts WHERE PostID = @PostID";
 
-                int postId = int.Parse(Page.RouteData.Values["id"] as string);
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@PostID", postId);
+                    object result = command.ExecuteScalar();
+                    return result != null && (int)result == userId;
+                }
+            }
+        }
+
+        protected void SaveButton_Click(object sender, EventArgs e)
+        {
+            string title = tbTitle.Text.Trim();
+            string content = tbContent.Text.Trim();
+            string priceStr = tbPrice.Text;
+            string imageURL = tbImage.Text;
+
+            if (!IsValidInput(title, content, priceStr, imageURL))
+            {
+                lblMessage.CssClass = "fail";
+                return;
+            }
+            else
+            {
+                lblMessage.CssClass = "success";
+            }
+
+            int postId = int.Parse(Page.RouteData.Values["id"] as string);
+            UpdatePostInDatabase(postId, title, content, priceStr, imageURL);
+        }
+
+        private bool IsValidInput(string title, string content, string price, string imageURL)
+        {
+            if (!Regex.IsMatch(title, @"^[a-zA-Zа-яА-Я0-9\s.,!?:;()'-]+$"))
+            {
+                lblMessage.Text = "Title can only contain letters, digits, and certain punctuation.";
+                return false;
+            }
+
+            if (!Regex.IsMatch(content, @"^[a-zA-Zа-яА-Я0-9\s.,!?:;()'-]+$"))
+            {
+                lblMessage.Text = "Content can only contain letters, digits, and certain punctuation.";
+                return false;
+            }
+
+            if (!decimal.TryParse(price, out _))
+            {
+                lblMessage.Text = "Incorrect price format.";
+                return false;
+            }
+
+            if (!Uri.IsWellFormedUriString(imageURL, UriKind.Absolute))
+            {
+                lblMessage.Text = "Invalid image URL.";
+                return false;
+            }
+
+            return true;
+        }
+
+        private void UpdatePostInDatabase(int postId, string title, string content, string priceStr, string imageURL)
+        {
+            decimal price = decimal.Parse(priceStr);
+            string connectionString = ConfigurationManager.ConnectionStrings["QWAdb"].ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
                 string query = @"UPDATE Posts SET Title = @Title, Content = @Content, CategoryID = @CategoryID, 
                                 Price = @Price, ImageURL = @ImageURL WHERE PostID = @PostID";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Title", tbTitle.Text);
-                    command.Parameters.AddWithValue("@Content", tbContent.Text);
+                    command.Parameters.AddWithValue("@Title", title);
+                    command.Parameters.AddWithValue("@Content", content);
                     command.Parameters.AddWithValue("@CategoryID", ddlCategory.SelectedValue);
-                    command.Parameters.AddWithValue("@Price", tbPrice.Text);
-                    command.Parameters.AddWithValue("@ImageURL", tbImage.Text);
+                    command.Parameters.AddWithValue("@Price", price);
+                    command.Parameters.AddWithValue("@ImageURL", imageURL);
                     command.Parameters.AddWithValue("@PostID", postId);
 
                     int rowsAffected = command.ExecuteNonQuery();

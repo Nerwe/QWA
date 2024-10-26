@@ -10,7 +10,7 @@ namespace QWA.Pages
         {
             if (Session["UserID"] == null)
             {
-                Response.Redirect("login");
+                Response.Redirect("/login");
             }
 
             int userId = (int)Session["UserID"];
@@ -80,7 +80,7 @@ namespace QWA.Pages
         {
             Session.Clear();
             Session.Abandon();
-            Response.Redirect("login");
+            Response.Redirect("/login");
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
