@@ -10,11 +10,18 @@
                         <div class="card-body">
                             <p class="card-text title"><%# Eval("Title") %></p>
                             <p class="card-text price"><%# Eval("Price", "{0:N0}") %> грн.</p>
-                            <p class="card-text date"><%# Eval("CreatedDate", "{0:dd MMM yyyy HH:MM}") %></p>
+                            <p class="card-text date"><%# Eval("CreatedDate", "{0:dd MMM yyyy HH:mm}") %></p>
                         </div>
                     </a>
                 </div>
             </ItemTemplate>
         </asp:Repeater>
     </div>
+    <div class="pagination-controls">
+        <asp:HyperLink ID="lnkPrevious" runat="server" Text="Previous" CssClass="text-link" />
+        <asp:Label ID="lblPageInfo" runat="server" />
+        <asp:HyperLink ID="lnkNext" runat="server" Text="Next" CssClass="text-link" />
+    </div>
+
+
 </asp:Content>

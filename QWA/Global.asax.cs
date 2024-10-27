@@ -55,6 +55,12 @@ namespace QWA
             );
 
             routes.MapPageRoute(
+                "HomePaged",
+                "home/page/{page}",
+                "~/Pages/Home.aspx"
+            );
+
+            routes.MapPageRoute(
                 "NotFoundRoute",
                 "{*url}",
                 "~/Pages/Home.aspx"

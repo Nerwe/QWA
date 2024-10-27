@@ -17,6 +17,17 @@ namespace QWA.Pages
                 {
                     LoadPostDetails(postId);
                     LoadComments(postId);
+
+                    if (Session["UserID"] != null)
+                    {
+                        phCommentForm.Visible = true;
+                        phLoginPrompt.Visible = false;
+                    }
+                    else
+                    {
+                        phCommentForm.Visible = false;
+                        phLoginPrompt.Visible = true;
+                    }
                 }
                 else
                 {
@@ -24,6 +35,7 @@ namespace QWA.Pages
                 }
             }
         }
+
 
         private bool PostExists(int postId)
         {
@@ -122,7 +134,7 @@ namespace QWA.Pages
             }
             else
             {
-                Response.Redirect("/");
+                Response.Redirect("/login");
             }
         }
 
