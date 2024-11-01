@@ -68,12 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\MainAfter.jpg" />
-    <Content Include="Content\Adding.css" />
-    <Content Include="Content\Details.css" />
-    <Content Include="Content\Home.css" />
-    <Content Include="Content\Form.css" />
-    <Content Include="Content\Profile.css" />
-    <Content Include="Content\Styles.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="favicon.ico" />

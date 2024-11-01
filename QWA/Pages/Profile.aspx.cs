@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Web.UI.WebControls;
 
 namespace QWA.Pages
 {
@@ -15,9 +16,13 @@ namespace QWA.Pages
 
             int userId = (int)Session["UserID"];
 
-            LoadUserProfile(userId);
-            LoadAnnouncements(userId);
+            if (!IsPostBack)
+            {
+                LoadUserProfile(userId);
+                LoadAnnouncements(userId);
+            }
         }
+
 
         private void LoadUserProfile(int userId)
         {
@@ -76,16 +81,64 @@ namespace QWA.Pages
             }
         }
 
+        private void DeletePost(int postId)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["QWAdb"].ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = "DELETE FROM Posts WHERE PostID = @PostID";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@PostID", postId);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        protected void DeleteButton_Click(object sender, EventArgs e)
+        {
+            LinkButton deleteButton = (LinkButton)sender;
+            int postId = Convert.ToInt32(deleteButton.CommandArgument);
+
+            ViewState["PostIdToDelete"] = postId;
+
+            RepeaterItem item = (RepeaterItem)deleteButton.NamingContainer;
+            Panel confirmationPanel = (Panel)item.FindControl("ConfirmationPanel");
+            confirmationPanel.Visible = true;
+            deleteButton.Visible = false;
+        }
+
+        protected void ConfirmDeleteButton_Click(object sender, EventArgs e)
+        {
+            LinkButton confirmButton = (LinkButton)sender;
+            int postId = Convert.ToInt32(confirmButton.CommandArgument);
+
+            DeletePost(postId);
+
+            int userId = (int)Session["UserID"];
+            LoadAnnouncements(userId);
+        }
+
+        protected void CancelDeleteButton_Click(object sender, EventArgs e)
+        {
+            LinkButton cancelButton = (LinkButton)sender;
+            RepeaterItem item = (RepeaterItem)cancelButton.NamingContainer;
+
+            Panel confirmationPanel = (Panel)item.FindControl("ConfirmationPanel");
+            LinkButton deleteButton = (LinkButton)item.FindControl("DeleteButton");
+            confirmationPanel.Visible = false;
+            deleteButton.Visible = true;
+        }
+
+
         protected void LogoutButton_Click(object sender, EventArgs e)
         {
             Session.Clear();
             Session.Abandon();
             Response.Redirect("/login");
-        }
-
-        protected void btnDelete_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

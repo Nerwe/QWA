@@ -7,7 +7,7 @@ namespace QWA.Pages
 {
     public partial class Home : System.Web.UI.Page
     {
-        private const int PageSize = 5;
+        private const int PageSize = 6;
 
         protected void Page_Load(object sender, EventArgs e)
         {

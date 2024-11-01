@@ -1,74 +1,141 @@
 ﻿<%@ Page Language="C#" Culture="uk-UA" AutoEventWireup="true" CodeBehind="Details.aspx.cs" Inherits="QWA.Pages.Details" MasterPageFile="~/MasterPage.Master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="details">
-        <div class="container">
-            <div class="image-container">
-                <asp:Image ID="ImageControl" runat="server" CssClass="main-image" Alt="Объявление" />
+    <div class="container mt-5 text-light">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="image-container mb-4">
+                    <asp:Image ID="ImageControl" runat="server" CssClass="img-fluid rounded" Alt="Объявление" Style="max-height: 400px; object-fit: cover;" />
+                </div>
             </div>
-            <div class="post-base-info">
-                <p class="post-text">
-                    Publish:
-                    <asp:Label ID="CreatedDateLabel" runat="server"></asp:Label>
-                </p>
-                <h5 class="post-title">
-                    <asp:Label ID="TitleLabel" runat="server"></asp:Label></h5>
-                <p class="post-text">
-                    <asp:Label ID="PriceLabel" runat="server"></asp:Label>
-                </p>
+
+            <div class="col-md-6 mb-4">
+                <div class="user-contact bg-dark border rounded p-3">
+                    <h5>Contact Seller</h5>
+                    <p class="user-email">
+                        <strong>Email:</strong>
+                        <asp:Label ID="UserEmailLabel" runat="server"></asp:Label>
+                    </p>
+                </div>
             </div>
         </div>
-        <div class="post-description">
+
+        <div class="post-base-info mb-4 p-3 bg-dark border rounded">
             <p class="post-text">
-                Category:
+                <strong>Publish:</strong>
+                <asp:Label ID="CreatedDateLabel" runat="server"></asp:Label>
+            </p>
+            <h5 class="post-title">
+                <asp:Label ID="TitleLabel" runat="server"></asp:Label>
+            </h5>
+            <p class="post-text">
+                <strong>Price:</strong>
+                <asp:Label ID="PriceLabel" runat="server"></asp:Label>
+            </p>
+        </div>
+
+        <div class="post-description mb-4 p-3 bg-dark border rounded">
+            <p class="post-text">
+                <strong>Category:</strong>
                 <asp:Label ID="CategoryLabel" runat="server"></asp:Label>
             </p>
-            <h5>DESCRIPTION</h5>
-            <p class="post-text">
+            <h5>Description</h5>
+            <p class="post-text" style="overflow-wrap: break-word;">
                 <asp:Label ID="DescriptionLabel" runat="server"></asp:Label>
             </p>
         </div>
-        <div class="user-info">
-            <h5>USER</h5>
+
+        <div class="user-info mb-4 p-3 bg-dark border rounded">
+            <h5>User</h5>
             <h5 class="user-name">
-                <asp:Label ID="UsernameLabel" runat="server"></asp:Label></h5>
+                <asp:Label ID="UsernameLabel" runat="server"></asp:Label>
+            </h5>
             <p class="user-reg-date">
+                <strong>Registration Date:</strong>
                 <asp:Label ID="UserRegDateLabel" runat="server"></asp:Label>
             </p>
         </div>
-        <div class="user-contact">
-            <h5>CONTACT SELLER</h5>
-            <p class="user-email">
-                Email:
-                <asp:Label ID="UserEmailLabel" runat="server"></asp:Label>
-            </p>
-        </div>
-        <div class="comments-section">
-            <h5>COMMENTS</h5>
-            <div class="comment-list">
+
+        <div class="comments-section mb-4">
+            <h5 class="text-light">Comments</h5>
+            <div class="comment-list mb-3">
                 <asp:Repeater ID="rptComments" runat="server">
                     <ItemTemplate>
-                        <div class="comment">
-                            <div class="comment-author">
-                                <strong><%# Eval("Author") %></strong>
-                                <span class="comment-date"><%# Eval("Date", "{0:MMM dd, yyyy}") %></span>
+                        <!-- Обёртка для комментария -->
+                        <div class="comment mb-2 p-3 bg-dark border rounded">
+                            <!-- "Шапка" комментария с именем автора и датой -->
+                            <div class="comment-header d-flex justify-content-between">
+                                <strong class="comment-author text-white"><%# Eval("Author") %></strong>
+                                <span class="comment-date text-muted" style="font-size: 0.875rem;"><%# Eval("Date", "{0:MMM dd, yyyy}") %></span>
                             </div>
-                            <div class="comment-text">
+
+                            <!-- "Тело" комментария с текстом -->
+                            <div class="comment-body mt-2 text-light" style="overflow-wrap: break-word;">
                                 <%# Eval("Text") %>
                             </div>
                         </div>
                     </ItemTemplate>
                 </asp:Repeater>
             </div>
-            <asp:PlaceHolder ID="phCommentForm" runat="server" Visible="false">
-                <div class="comment-form">
-                    <asp:TextBox ID="txtComment" runat="server" TextMode="MultiLine" Rows="10" CssClass="comment-textarea" placeholder="Write your comment..."></asp:TextBox>
-                    <asp:Button ID="btnSubmit" runat="server" Text="Post Comment" CssClass="submit-button" OnClick="btnSubmit_Click" />
+
+            <asp:PlaceHolder ID="PlaceHolder1" runat="server" Visible="false">
+                <div class="comment-form mb-3">
+                    <asp:TextBox ID="TextBox1" runat="server" TextMode="MultiLine" Rows="5" CssClass="form-control bg-dark text-light" placeholder="Write your comment..."></asp:TextBox>
+                    <asp:Button ID="Button1" runat="server" Text="Post Comment" CssClass="btn btn-primary mt-2" OnClick="btnSubmit_Click" />
                 </div>
             </asp:PlaceHolder>
-            <asp:PlaceHolder ID="phLoginPrompt" runat="server" Visible="false">
-                <p class="login-prompt">You need to be logged in to post a comment. <a href="/login" class="text-link">Login here</a>.</p>
+
+            <asp:PlaceHolder ID="PlaceHolder2" runat="server" Visible="false">
+                <p class="login-prompt text-danger">You need to be logged in to post a comment. <a href="/login" class="text-link">Login here</a>.</p>
             </asp:PlaceHolder>
         </div>
+
+
+        <asp:PlaceHolder ID="phCommentForm" runat="server" Visible="false">
+            <div class="comment-form mb-3">
+                <asp:TextBox ID="txtComment" runat="server" TextMode="MultiLine" Rows="5" CssClass="form-control bg-dark text-light" placeholder="Write your comment..."></asp:TextBox>
+                <asp:Button ID="btnSubmit" runat="server" Text="Post Comment" CssClass="btn btn-primary mt-2" OnClick="btnSubmit_Click" />
+            </div>
+        </asp:PlaceHolder>
+
+        <asp:PlaceHolder ID="phLoginPrompt" runat="server" Visible="false">
+            <p class="login-prompt text-danger">You need to be logged in to post a comment. <a href="/login" class="text-link">Login here</a>.</p>
+        </asp:PlaceHolder>
     </div>
+
+    <style>
+        .bg-dark {
+            background-color: #212529 !important;
+        }
+
+        .text-light {
+            color: #f8f9fa !important;
+        }
+
+        .comment-header {
+            border-bottom: 1px solid #343a40;
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+        }
+
+        .comment-body {
+            color: #e9ecef;
+        }
+
+        .comment {
+            background-color: #343a40;
+        }
+
+        .text-link {
+            color: #0d6efd;
+            text-decoration: underline;
+        }
+
+        .form-control.bg-dark {
+            background-color: #343a40;
+            border-color: #495057;
+            color: #f8f9fa;
+        }
+    </style>
+
 </asp:Content>

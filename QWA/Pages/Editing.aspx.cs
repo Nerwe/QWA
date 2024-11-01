@@ -108,12 +108,7 @@ namespace QWA.Pages
 
             if (!IsValidInput(title, content, priceStr, imageURL))
             {
-                lblMessage.CssClass = "fail";
                 return;
-            }
-            else
-            {
-                lblMessage.CssClass = "success";
             }
 
             int postId = int.Parse(Page.RouteData.Values["id"] as string);
@@ -170,7 +165,7 @@ namespace QWA.Pages
                     command.Parameters.AddWithValue("@PostID", postId);
 
                     int rowsAffected = command.ExecuteNonQuery();
-                    lblMessage.Text = rowsAffected > 0 ? "Post updated successfully." : "Update failed.";
+                    Response.Redirect("/profile");
                 }
             }
         }

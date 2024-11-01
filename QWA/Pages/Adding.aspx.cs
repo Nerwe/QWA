@@ -49,12 +49,7 @@ namespace QWA.Pages
 
             if (!IsValidInput(title, content, tbPrice.Text, tbImageURL.Text))
             {
-                MessageLabel.CssClass = "fail";
                 return;
-            }
-            else
-            {
-                MessageLabel.CssClass = "success";
             }
 
             if (!decimal.TryParse(tbPrice.Text, out price))
@@ -118,8 +113,9 @@ namespace QWA.Pages
                 cmd.ExecuteNonQuery();
                 conn.Close();
 
-                MessageLabel.Text = "Post created!";
                 ClearFields();
+
+                Response.Redirect("/login");
             }
         }
 
