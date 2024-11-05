@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Adding.aspx.cs" Inherits="QWA.Pages.Adding" MasterPageFile="~/MasterPage.Master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Adding.aspx.cs" Inherits="QWA.Pages.Adding" MasterPageFile="~/MasterPage.Master" Title="Add post" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container mt-5">

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" Culture="uk-UA" AutoEventWireup="true" CodeBehind="Details.aspx.cs" Inherits="QWA.Pages.Details" MasterPageFile="~/MasterPage.Master" %>
+﻿<%@ Page Language="C#" Culture="uk-UA" AutoEventWireup="true" CodeBehind="Details.aspx.cs" Inherits="QWA.Pages.Details" MasterPageFile="~/MasterPage.Master" Title="Post details" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container mt-5 text-light">
@@ -61,15 +61,11 @@
             <div class="comment-list mb-3">
                 <asp:Repeater ID="rptComments" runat="server">
                     <ItemTemplate>
-                        <!-- Обёртка для комментария -->
                         <div class="comment mb-2 p-3 bg-dark border rounded">
-                            <!-- "Шапка" комментария с именем автора и датой -->
                             <div class="comment-header d-flex justify-content-between">
                                 <strong class="comment-author text-white"><%# Eval("Author") %></strong>
                                 <span class="comment-date text-muted" style="font-size: 0.875rem;"><%# Eval("Date", "{0:MMM dd, yyyy}") %></span>
                             </div>
-
-                            <!-- "Тело" комментария с текстом -->
                             <div class="comment-body mt-2 text-light" style="overflow-wrap: break-word;">
                                 <%# Eval("Text") %>
                             </div>

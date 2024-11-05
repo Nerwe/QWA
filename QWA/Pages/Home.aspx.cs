@@ -54,7 +54,7 @@ namespace QWA.Pages
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = 
+                string query =
                     @"WITH PaginatedPosts AS (
                     SELECT p.PostID, p.Title, p.Price, p.ImageURL, p.CreatedDate, 
                            c.CategoryName, 
@@ -84,8 +84,6 @@ namespace QWA.Pages
                 UpdatePaginationControls(pageIndex, totalPages);
             }
         }
-
-
 
         protected void btnPrevious_Click(object sender, EventArgs e)
         {

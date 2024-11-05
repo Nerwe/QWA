@@ -36,7 +36,6 @@ namespace QWA.Pages
             }
         }
 
-
         private bool PostExists(int postId)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["QWAdb"].ConnectionString;
