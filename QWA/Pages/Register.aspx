@@ -7,11 +7,11 @@
                 <h2>Register</h2>
             </div>
             <div class="card-body">
-                <asp:TextBox ID="tbUsername" runat="server" placeholder="Username" CssClass="form-control mb-3 bg-dark text-light border-secondary" />
-                <asp:TextBox ID="tbEmail" runat="server" placeholder="Email" CssClass="form-control mb-3 bg-dark text-light border-secondary" />
+                <asp:TextBox ID="tbUsername" runat="server" placeholder="Username" CssClass="form-control mb-3 bg-dark text-light shadow-none border-secondary" />
+                <asp:TextBox ID="tbEmail" runat="server" placeholder="Email" CssClass="form-control mb-3 bg-dark text-light shadow-none border-secondary" />
                 <div class="mb-3">
-                    <asp:TextBox ID="tbPassword" runat="server" TextMode="Password" placeholder="Password" CssClass="form-control mb-3 bg-dark text-light border-secondary" />
-                    <asp:TextBox ID="tbPasswordConfirm" runat="server" TextMode="Password" placeholder="Confirm Password" CssClass="form-control mb-3 bg-dark text-light border-secondary" />
+                    <asp:TextBox ID="tbPassword" runat="server" TextMode="Password" placeholder="Password" CssClass="form-control mb-3 bg-dark text-light shadow-none border-secondary" />
+                    <asp:TextBox ID="tbPasswordConfirm" runat="server" TextMode="Password" placeholder="Confirm Password" CssClass="form-control mb-3 bg-dark text-light shadow-none border-secondary" />
                 </div>
                 <asp:Button ID="RegisterButton" runat="server" Text="Register" OnClick="RegisterButton_Click" CssClass="btn btn-primary btn-block" />
                 <asp:Label ID="MessageLabel" runat="server" ForeColor="Red" CssClass="mt-2 d-block text-center"></asp:Label>

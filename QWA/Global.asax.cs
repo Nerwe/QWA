@@ -49,14 +49,14 @@ namespace QWA
             );
 
             routes.MapPageRoute(
-                "HomeRoute",
-                "home",
+                "HomePaged",
+                "page/{page}",
                 "~/Pages/Home.aspx"
             );
 
             routes.MapPageRoute(
-                "HomePaged",
-                "home/page/{page}",
+                "SearchRoute",
+                "search/{query}/page/{page}",
                 "~/Pages/Home.aspx"
             );
 

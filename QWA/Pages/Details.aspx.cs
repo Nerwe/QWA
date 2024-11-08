@@ -124,8 +124,19 @@ namespace QWA.Pages
                 int userId = (int)Session["UserID"];
                 string commentText = txtComment.Text;
 
-                if (!string.IsNullOrWhiteSpace(commentText))
+                if (string.IsNullOrWhiteSpace(commentText))
                 {
+                    lblError.Text = "Comments can't be empty.";
+                    lblError.Visible = true;
+                }
+                else if (commentText.Length > 255)
+                {
+                    lblError.Text = "Comments can't exceed 255 characters.";
+                    lblError.Visible = true;
+                }
+                else
+                {
+                    lblError.Visible = false;
                     AddComment(postId, userId, commentText);
                     txtComment.Text = string.Empty;
                     LoadComments(postId);
@@ -136,6 +147,7 @@ namespace QWA.Pages
                 Response.Redirect("/login");
             }
         }
+
 
         private void AddComment(int postId, int userId, string commentText)
         {

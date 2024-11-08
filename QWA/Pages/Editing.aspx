@@ -8,11 +8,11 @@
             </div>
             <div class="card-body">
                 <asp:Label ID="lblMessage" runat="server" ForeColor="Red" CssClass="mb-3 d-block text-center"></asp:Label>
-                <asp:TextBox ID="tbTitle" runat="server" placeholder="Title" CssClass="form-control mb-3 bg-dark text-light border-secondary" />
-                <asp:TextBox ID="tbContent" runat="server" TextMode="MultiLine" Rows="10" placeholder="Content" CssClass="form-control mb-3 bg-dark text-light border-secondary" />
-                <asp:TextBox ID="tbPrice" runat="server" placeholder="Price" CssClass="form-control mb-3 bg-dark text-light border-secondary" />
-                <asp:TextBox ID="tbImage" runat="server" placeholder="Image URL" CssClass="form-control mb-3 bg-dark text-light border-secondary" />
-                <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control mb-3 bg-dark text-light border-secondary"></asp:DropDownList>
+                <asp:TextBox ID="tbTitle" runat="server" placeholder="Title" CssClass="form-control mb-3 bg-dark text-light shadow-none border-secondary" />
+                <asp:TextBox ID="tbContent" runat="server" TextMode="MultiLine" Rows="10" placeholder="Content" CssClass="form-control mb-3 bg-dark text-light shadow-none border-secondary" />
+                <asp:TextBox ID="tbPrice" runat="server" placeholder="Price" CssClass="form-control mb-3 bg-dark text-light shadow-none border-secondary" />
+                <asp:TextBox ID="tbImage" runat="server" placeholder="Image URL" CssClass="form-control mb-3 bg-dark text-light shadow-none border-secondary" />
+                <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control mb-3 bg-dark text-light shadow-none border-secondary"></asp:DropDownList>
                 <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="SaveButton_Click" CssClass="btn btn-primary btn-block" />
             </div>
         </div>

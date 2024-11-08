@@ -9,6 +9,8 @@
     </title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
     <style>
         body {
@@ -24,22 +26,28 @@
             color: #ffffff;
         }
 
-            .navbar-light .navbar-nav .nav-link:hover {
-                color: #adb5bd;
-            }
+        .navbar-light .navbar-nav .nav-link:hover {
+            color: #adb5bd;
+        }
 
         .footer {
             background-color: #212529;
             padding: 1rem 0;
         }
 
-            .footer p {
-                margin: 0;
-            }
+        .footer p {
+            margin: 0;
+        }
 
         .navbar-brand img {
             height: 40px;
             width: auto;
+        }
+
+        .navbar-text {
+            color: #ffffff;
+            font-size: 1rem;
+            margin-right: 1rem;
         }
     </style>
 </head>
@@ -71,6 +79,13 @@
                             <a class="nav-link" href="/adding">Adding</a>
                         </li>
                     </ul>
+                    <!-- Статистика -->
+                    <span class="navbar-text ml-auto">
+                        <i class="fas fa-file-alt"></i> <%= TotalPosts %>
+                    </span>
+                    <span class="navbar-text">
+                        <i class="fas fa-users"></i> <%= TotalUsers %>
+                    </span>
                 </div>
             </nav>
         </div>

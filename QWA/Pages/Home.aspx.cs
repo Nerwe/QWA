@@ -14,7 +14,8 @@ namespace QWA.Pages
             if (!IsPostBack)
             {
                 int pageIndex = 1;
-                int totalPages = GetTotalPages();
+                string query = Page.RouteData.Values["query"]?.ToString();
+                int totalPages = GetTotalPages(query);
 
                 if (Page.RouteData.Values["page"] != null && int.TryParse(Page.RouteData.Values["page"].ToString(), out int page))
                 {
@@ -29,45 +30,69 @@ namespace QWA.Pages
                     }
                 }
 
-                LoadAnnouncements(pageIndex);
+                LoadAnnouncements(pageIndex, query);
             }
         }
 
-        private int GetTotalPages()
+        private int GetTotalPages(string query)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["QWAdb"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string countQuery = "SELECT COUNT(*) FROM Posts";
-                SqlCommand countCmd = new SqlCommand(countQuery, conn);
-                conn.Open();
 
+                if (!string.IsNullOrEmpty(query))
+                {
+                    countQuery += " WHERE Title LIKE @Query";
+                }
+
+                SqlCommand countCmd = new SqlCommand(countQuery, conn);
+
+                if (!string.IsNullOrEmpty(query))
+                {
+                    countCmd.Parameters.AddWithValue("@Query", "%" + query + "%");
+                }
+
+                conn.Open();
                 int totalRecords = (int)countCmd.ExecuteScalar();
                 return (int)Math.Ceiling((double)totalRecords / PageSize);
             }
         }
 
-        private void LoadAnnouncements(int pageIndex)
+        private void LoadAnnouncements(int pageIndex, string query)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["QWAdb"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query =
+                string postQuery =
                     @"WITH PaginatedPosts AS (
                     SELECT p.PostID, p.Title, p.Price, p.ImageURL, p.CreatedDate, 
                            c.CategoryName, 
                            ROW_NUMBER() OVER(ORDER BY p.CreatedDate DESC) AS RowNum
                     FROM Posts p
                     INNER JOIN Categories c ON p.CategoryID = c.CategoryID
+                    ";
+
+                if (!string.IsNullOrEmpty(query))
+                {
+                    postQuery += " WHERE p.Title LIKE @Query ";
+                }
+
+                postQuery += @"
                 )
                 SELECT * FROM PaginatedPosts
                 WHERE RowNum BETWEEN @StartRow AND @EndRow";
 
-                SqlCommand cmd = new SqlCommand(query, conn);
+                SqlCommand cmd = new SqlCommand(postQuery, conn);
                 cmd.Parameters.AddWithValue("@StartRow", (pageIndex - 1) * PageSize + 1);
                 cmd.Parameters.AddWithValue("@EndRow", pageIndex * PageSize);
+
+                if (!string.IsNullOrEmpty(query))
+                {
+                    cmd.Parameters.AddWithValue("@Query", "%" + query + "%");
+                }
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -76,14 +101,45 @@ namespace QWA.Pages
                 AnnouncementsRepeater.DataSource = dt;
                 AnnouncementsRepeater.DataBind();
 
-                cmd.CommandText = "SELECT COUNT(*) FROM Posts";
+                string countQuery = "SELECT COUNT(*) FROM Posts";
+                if (!string.IsNullOrEmpty(query))
+                {
+                    countQuery += " WHERE Title LIKE @Query";
+                }
+
+                SqlCommand countCmd = new SqlCommand(countQuery, conn);
+                if (!string.IsNullOrEmpty(query))
+                {
+                    countCmd.Parameters.AddWithValue("@Query", "%" + query + "%");
+                }
+
                 conn.Open();
-                int totalAnnouncements = (int)cmd.ExecuteScalar();
+                int totalAnnouncements = (int)countCmd.ExecuteScalar();
                 int totalPages = (int)Math.Ceiling((double)totalAnnouncements / PageSize);
 
-                UpdatePaginationControls(pageIndex, totalPages);
+                UpdatePaginationControls(pageIndex, totalPages, query);
             }
         }
+
+        private void UpdatePaginationControls(int pageIndex, int totalPages, string query)
+        {
+            lblPageInfo.Text = $"Page {pageIndex} of {totalPages}";
+
+            if (!string.IsNullOrEmpty(query))
+            {
+                lnkPrevious.NavigateUrl = GetRouteUrl("SearchRoute", new { query, page = pageIndex - 1 });
+                lnkNext.NavigateUrl = GetRouteUrl("SearchRoute", new { query, page = pageIndex + 1 });
+            }
+            else
+            {
+                lnkPrevious.NavigateUrl = GetRouteUrl("HomePaged", new { page = pageIndex - 1 });
+                lnkNext.NavigateUrl = GetRouteUrl("HomePaged", new { page = pageIndex + 1 });
+            }
+
+            lnkPrevious.Visible = pageIndex > 1;
+            lnkNext.Visible = pageIndex < totalPages;
+        }
+
 
         protected void btnPrevious_Click(object sender, EventArgs e)
         {
@@ -92,7 +148,7 @@ namespace QWA.Pages
             {
                 currentPage--;
                 ViewState["CurrentPage"] = currentPage;
-                LoadAnnouncements(currentPage);
+                LoadAnnouncements(currentPage, (string)ViewState["SearchQuery"]);
             }
         }
 
@@ -104,19 +160,22 @@ namespace QWA.Pages
             {
                 currentPage++;
                 ViewState["CurrentPage"] = currentPage;
-                LoadAnnouncements(currentPage);
+                LoadAnnouncements(currentPage, (string)ViewState["SearchQuery"]);
             }
         }
 
-        private void UpdatePaginationControls(int pageIndex, int totalPages)
+        protected void SearchButton_Click(object sender, EventArgs e)
         {
-            lblPageInfo.Text = $"Page {pageIndex} of {totalPages}";
+            string query = SearchTextBox.Text.Trim();
 
-            lnkPrevious.Visible = pageIndex > 1;
-            lnkPrevious.NavigateUrl = GetRouteUrl("HomePaged", new { page = pageIndex - 1 });
-
-            lnkNext.Visible = pageIndex < totalPages;
-            lnkNext.NavigateUrl = GetRouteUrl("HomePaged", new { page = pageIndex + 1 });
+            if (!string.IsNullOrEmpty(query))
+            {
+                Response.Redirect(GetRouteUrl("SearchRoute", new { query, page = 1 }));
+            }
+            else
+            {
+                Response.Redirect(GetRouteUrl("HomePaged", new { page = 1 }));
+            }
         }
     }
 }

@@ -7,8 +7,8 @@
                 <h2>Login</h2>
             </div>
             <div class="card-body">
-                <asp:TextBox ID="tbUsername" runat="server" placeholder="Username" CssClass="form-control mb-3 bg-dark text-light border-secondary" />
-                <asp:TextBox ID="tbPassword" runat="server" TextMode="Password" placeholder="Password" CssClass="form-control mb-3 bg-dark text-light border-secondary" />
+                <asp:TextBox ID="tbUsername" runat="server" placeholder="Username" CssClass="form-control mb-3 bg-dark text-light shadow-none border-secondary" />
+                <asp:TextBox ID="tbPassword" runat="server" TextMode="Password" placeholder="Password" CssClass="form-control mb-3 bg-dark text-light shadow-none border-secondary" />
                 <asp:Button ID="btLoginButton" runat="server" Text="Login" OnClick="LoginButton_Click" CssClass="btn btn-primary btn-block" />
                 <asp:Label ID="MessageLabel" runat="server" ForeColor="Red" CssClass="mt-2 d-block text-center"></asp:Label>
             </div>

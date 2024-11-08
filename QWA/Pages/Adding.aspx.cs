@@ -115,7 +115,7 @@ namespace QWA.Pages
 
                 ClearFields();
 
-                Response.Redirect("/login");
+                Response.Redirect("/profile");
             }
         }
 

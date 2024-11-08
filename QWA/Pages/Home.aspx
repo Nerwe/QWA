@@ -1,7 +1,18 @@
-﻿<%@ Page Language="C#" Culture="uk-UA" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="QWA.Pages.Home" MasterPageFile="~/MasterPage.Master" Title="QWA"%>
+﻿<%@ Page Language="C#" Culture="uk-UA" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="QWA.Pages.Home" MasterPageFile="~/MasterPage.Master" Title="QWA" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container mt-4">
+        <div class="row mb-4">
+            <div class="col-md-8 mx-auto">
+                <div class="input-group">
+                    <asp:TextBox ID="SearchTextBox" runat="server" CssClass="form-control bg-dark text-white shadow-none border-secondary" Placeholder="Search posts..." />
+                    <div class="input-group-append">
+                        <asp:Button ID="SearchButton" runat="server" Text="🔍" CssClass="btn btn-secondary" OnClick="SearchButton_Click" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <asp:Repeater ID="AnnouncementsRepeater" runat="server">
                 <ItemTemplate>
@@ -33,10 +44,10 @@
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
+            .card:hover {
+                transform: scale(1.05);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            }
 
         .card-body {
             background-color: #212529;
@@ -46,10 +57,15 @@
             color: #ffffff;
         }
 
-        a:hover,
-        a:focus {
+            a:hover,
+            a:focus {
+                color: #ffffff;
+                text-decoration: none;
+            }
+
+        .input-group .form-control.bg-dark {
+            background-color: #212529;
             color: #ffffff;
-            text-decoration: none;
         }
     </style>
 </asp:Content>

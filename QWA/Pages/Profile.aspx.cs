@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QWA.Services;
+using System;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Web.UI.WebControls;
@@ -7,6 +8,8 @@ namespace QWA.Pages
 {
     public partial class Profile : System.Web.UI.Page
     {
+        public int TotalPostsByUser { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["UserID"] == null)
@@ -15,6 +18,9 @@ namespace QWA.Pages
             }
 
             int userId = (int)Session["UserID"];
+
+            StatisticService service = new StatisticService();
+            TotalPostsByUser = service.GetTotalPostsByUser(userId);
 
             if (!IsPostBack)
             {

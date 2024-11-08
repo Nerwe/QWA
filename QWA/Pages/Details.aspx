@@ -73,31 +73,21 @@
                     </ItemTemplate>
                 </asp:Repeater>
             </div>
-
-            <asp:PlaceHolder ID="PlaceHolder1" runat="server" Visible="false">
-                <div class="comment-form mb-3">
-                    <asp:TextBox ID="TextBox1" runat="server" TextMode="MultiLine" Rows="5" CssClass="form-control bg-dark text-light" placeholder="Write your comment..."></asp:TextBox>
-                    <asp:Button ID="Button1" runat="server" Text="Post Comment" CssClass="btn btn-primary mt-2" OnClick="btnSubmit_Click" />
-                </div>
-            </asp:PlaceHolder>
-
-            <asp:PlaceHolder ID="PlaceHolder2" runat="server" Visible="false">
-                <p class="login-prompt text-danger">You need to be logged in to post a comment. <a href="/login" class="text-link">Login here</a>.</p>
-            </asp:PlaceHolder>
         </div>
-
 
         <asp:PlaceHolder ID="phCommentForm" runat="server" Visible="false">
             <div class="comment-form mb-3">
-                <asp:TextBox ID="txtComment" runat="server" TextMode="MultiLine" Rows="5" CssClass="form-control bg-dark text-light" placeholder="Write your comment..."></asp:TextBox>
+                <asp:TextBox ID="txtComment" runat="server" TextMode="MultiLine" Rows="5" CssClass="form-control bg-dark shadow-none text-light" placeholder="Write your comment..."></asp:TextBox>
+                <asp:Label ID="lblError" runat="server" Visible="false" CssClass="text-danger"></asp:Label>
                 <asp:Button ID="btnSubmit" runat="server" Text="Post Comment" CssClass="btn btn-primary mt-2" OnClick="btnSubmit_Click" />
             </div>
         </asp:PlaceHolder>
 
         <asp:PlaceHolder ID="phLoginPrompt" runat="server" Visible="false">
-            <p class="login-prompt text-danger">You need to be logged in to post a comment. <a href="/login" class="text-link">Login here</a>.</p>
+            <p class="text-danger">You need to be logged in to post a comment. <a href="/login" class="text-link">Login here</a>.</p>
         </asp:PlaceHolder>
     </div>
+
 
     <style>
         .bg-dark {

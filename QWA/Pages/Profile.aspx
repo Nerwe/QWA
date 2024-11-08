@@ -10,6 +10,10 @@
                 <div class="card-body text-center">
                     <asp:Label ID="UsernameLabel" runat="server" CssClass="text-light display-4 d-block mb-2"></asp:Label>
                     <asp:Label ID="EmailLabel" runat="server" CssClass="text-light h5 d-block mb-3"></asp:Label>
+                    <div class="text-light h5 mb-3">
+                        <i class="fas fa-file-alt"></i><%= TotalPostsByUser %> My Posts
+                   
+                    </div>
                     <asp:Button ID="LogoutButton" runat="server" Text="Logout" OnClick="LogoutButton_Click" CssClass="btn btn-danger btn-block" />
                 </div>
             </div>
@@ -50,18 +54,6 @@
                     </div>
                 </ItemTemplate>
             </asp:Repeater>
-
-        </div>
-
-        <div class="confirmation-section text-center mt-4">
-            <asp:LinkButton ID="ConfirmDeleteButton" runat="server"
-                OnClick="ConfirmDeleteButton_Click"
-                CssClass="btn btn-danger btn-sm mt-2"
-                Visible="false">Yes</asp:LinkButton>
-            <asp:LinkButton ID="CancelDeleteButton" runat="server"
-                OnClick="CancelDeleteButton_Click"
-                CssClass="btn btn-secondary btn-sm mt-2"
-                Visible="false">No</asp:LinkButton>
         </div>
     </div>
 
