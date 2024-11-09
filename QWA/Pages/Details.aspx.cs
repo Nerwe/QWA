@@ -148,7 +148,6 @@ namespace QWA.Pages
             }
         }
 
-
         private void AddComment(int postId, int userId, string commentText)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["QWAdb"].ConnectionString;

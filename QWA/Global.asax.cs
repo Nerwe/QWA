@@ -31,6 +31,12 @@ namespace QWA
             );
 
             routes.MapPageRoute(
+                "ProfilePaged",
+                "profile/page/{id}",
+                "~/Pages/Profile.aspx"
+            );
+
+            routes.MapPageRoute(
                 "AddingRoute",
                 "adding",
                 "~/Pages/Adding.aspx"

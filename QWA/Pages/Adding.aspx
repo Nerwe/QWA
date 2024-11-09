@@ -13,6 +13,7 @@
                 <asp:TextBox ID="tbPrice" runat="server" placeholder="Price" CssClass="form-control mb-3 bg-dark text-light shadow-none border-secondary" />
                 <asp:TextBox ID="tbImageURL" runat="server" placeholder="Image URL" CssClass="form-control mb-3 bg-dark text-light shadow-none border-secondary" />
                 <asp:DropDownList ID="ddlCategories" runat="server" CssClass="form-control mb-3 bg-dark text-light shadow-none border-secondary"></asp:DropDownList>
+                <asp:TextBox ID="tbPostCopies" runat="server" placeholder="Enter number of copies" CssClass="form-control mb-3 bg-dark text-light shadow-none border-secondary" Visible="false" />
                 <asp:Button ID="AddPostButton" runat="server" Text="Add" OnClick="AddPostButton_Click" CssClass="btn btn-primary btn-block" />
             </div>
         </div>

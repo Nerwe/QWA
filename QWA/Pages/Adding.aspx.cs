@@ -8,6 +8,24 @@ namespace QWA.Pages
 {
     public partial class Adding : System.Web.UI.Page
     {
+        private bool IsUserAdmin()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["QWAdb"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT isAdmin FROM Users WHERE UserID = @UserID";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@UserID", Session["UserID"]);
+
+                conn.Open();
+                object result = cmd.ExecuteScalar();
+                conn.Close();
+
+                return result != null && (bool)result;
+            }
+        }
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["UserID"] == null)
@@ -18,8 +36,12 @@ namespace QWA.Pages
             if (!IsPostBack)
             {
                 LoadCategories();
+
+                bool isAdmin = IsUserAdmin();
+                tbPostCopies.Visible = isAdmin;
             }
         }
+
 
         private void LoadCategories()
         {
@@ -46,8 +68,16 @@ namespace QWA.Pages
             string title = tbTitle.Text.Trim();
             string content = tbContent.Text.Trim();
             decimal price;
+            string imageURL = tbImageURL.Text.Trim();
+            int categoryID = Convert.ToInt32(ddlCategories.SelectedValue);
+            int copyCount = 1;
 
-            if (!IsValidInput(title, content, tbPrice.Text, tbImageURL.Text))
+            if (IsUserAdmin() && int.TryParse(tbPostCopies.Text, out int copies))
+            {
+                copyCount = copies > 0 ? copies : 1;
+            }
+
+            if (!IsValidInput(title, content, tbPrice.Text, imageURL))
             {
                 return;
             }
@@ -58,9 +88,14 @@ namespace QWA.Pages
                 return;
             }
 
-            int categoryID = Convert.ToInt32(ddlCategories.SelectedValue);
-            AddPostToDatabase(title, content, price, tbImageURL.Text, categoryID);
+            for (int i = 0; i < copyCount; i++)
+            {
+                AddPostToDatabase(title, content, price, imageURL, categoryID);
+            }
+
+            Response.Redirect("/profile");
         }
+
 
         private bool IsValidInput(string title, string content, string price, string imageURL)
         {
@@ -114,8 +149,6 @@ namespace QWA.Pages
                 conn.Close();
 
                 ClearFields();
-
-                Response.Redirect("/profile");
             }
         }
 

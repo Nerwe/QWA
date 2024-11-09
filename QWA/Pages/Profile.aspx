@@ -15,6 +15,8 @@
                    
                     </div>
                     <asp:Button ID="LogoutButton" runat="server" Text="Logout" OnClick="LogoutButton_Click" CssClass="btn btn-danger btn-block" />
+                    <asp:Button ID="DeleteAllPostsButton" runat="server" Text="Delete All Posts" OnClick="DeleteAllPostsButton_Click" CssClass="btn btn-danger btn-block mb-3" Visible="false" />
+                    <asp:Button ID="DeleteAllCommentsButton" runat="server" Text="Delete All Comments" OnClick="DeleteAllCommentsButton_Click" CssClass="btn btn-danger btn-block mb-3" Visible="false" />
                 </div>
             </div>
         </div>
@@ -54,6 +56,11 @@
                     </div>
                 </ItemTemplate>
             </asp:Repeater>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mt-4">
+            <asp:HyperLink ID="lnkPrevious" runat="server" Text="Previous" CssClass="btn btn-secondary" />
+            <asp:Label ID="lblPageInfo" runat="server" CssClass="text-light" />
+            <asp:HyperLink ID="lnkNext" runat="server" Text="Next" CssClass="btn btn-secondary" />
         </div>
     </div>
 

@@ -54,7 +54,5 @@ namespace QWA.Services
 
             return totalUsers;
         }
-
-
     }
 }

@@ -69,6 +69,15 @@ namespace QWA.Pages
         protected global::System.Web.UI.WebControls.DropDownList ddlCategories;
 
         /// <summary>
+        /// tbPostCopies элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbPostCopies;
+
+        /// <summary>
         /// AddPostButton элемент управления.
         /// </summary>
         /// <remarks>
