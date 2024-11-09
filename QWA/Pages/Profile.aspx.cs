@@ -54,9 +54,14 @@ namespace QWA.Pages
                 int totalPosts = service.GetTotalPostsByUser(userId);
                 int totalPages = (int)Math.Ceiling((double)totalPosts / PageSize);
 
+                if (totalPages == 0)
+                {
+                    return;
+                }
+
                 if (pageIndex > totalPages)
                 {
-                    Response.Redirect($"/profile/page/{17}");
+                    Response.Redirect($"/profile/page/{totalPages}");
                     return;
                 }
 
@@ -137,7 +142,6 @@ namespace QWA.Pages
                     }
                 }
 
-                // Update pagination controls
                 UpdatePaginationControls(userId, pageIndex);
             }
         }
